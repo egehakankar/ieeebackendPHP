@@ -49,6 +49,8 @@ if (isset($_POST['submit'])) {
     $technical = reArrayFiles($_FILES['technical']);
     $social = reArrayFiles($_FILES['social']);
     $team = reArrayFiles($_FILES['team']);
+    $blog = reArrayFiles($_FILES['blog']);
+    $interview = reArrayFiles($_FILES['interview']);
 
     $i = 0;
 
@@ -58,6 +60,8 @@ if (isset($_POST['submit'])) {
     $technicalD = 'images/back/' . $technical[$i]['name'];
     $socialD = 'images/back/' . $social[$i]['name'];
     $teamD = 'images/back/' . $team[$i]['name'];
+    $blogD = 'images/back/' . $blog[$i]['name'];
+    $interviewD = 'images/back/' . $interview[$i]['name'];
 
     $mainD2 = 'http://localhost:8000/ieeebackend/images/back/' . $main[$i]['name'];
     $counterD2 = 'http://localhost:8000/ieeebackend/images/back/' . $counter[$i]['name'];
@@ -65,6 +69,8 @@ if (isset($_POST['submit'])) {
     $technicalD2 = 'http://localhost:8000/ieeebackend/images/back/' . $technical[$i]['name'];
     $socialD2 = 'http://localhost:8000/ieeebackend/images/back/' . $social[$i]['name'];
     $teamD2 = 'http://localhost:8000/ieeebackend/images/back/' . $team[$i]['name'];
+    $blogD2 = 'http://localhost:8000/ieeebackend/images/back/' . $blog[$i]['name'];
+    $interviewD2 = 'http://localhost:8000/ieeebackend/images/back/' . $interview[$i]['name'];
 
     if ($mainD != 'images/back/') {
         move_uploaded_file($main[$i]['tmp_name'], $mainD);
@@ -94,6 +100,16 @@ if (isset($_POST['submit'])) {
     if ($teamD != 'images/back/') {
         move_uploaded_file($team[$i]['tmp_name'], $teamD);
         $sql = "UPDATE $table SET team = '$teamD2' WHERE id=1";
+        $mysqli->query($sql) or die($mysqli->error);
+    }
+    if ($blogD != 'images/back/') {
+        move_uploaded_file($blog[$i]['tmp_name'], $blogD);
+        $sql = "UPDATE $table SET blog = '$blogD2' WHERE id=1";
+        $mysqli->query($sql) or die($mysqli->error);
+    }
+    if ($interviewD != 'images/back/') {
+        move_uploaded_file($interview[$i]['tmp_name'], $interviewD);
+        $sql = "UPDATE $table SET interview = '$interviewD2' WHERE id=1";
         $mysqli->query($sql) or die($mysqli->error);
     }
 ?>
@@ -127,6 +143,8 @@ function reArrayFiles(&$file_post)
         <a href="./techAdd.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Add Technical</a>
         <a href="./updateBack.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Update Backgrounds</a>
         <a href="./updateTeam.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Update Team</a>
+        <a href="./blogAdd.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Add Blog</a>
+        <a href="./interAdd.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Add Interview</a>
         <a href="./logout.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style= "float: right;">Logout</a>
     </div>
 </div>
@@ -137,6 +155,8 @@ function reArrayFiles(&$file_post)
     <a href="./techAdd.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Add Technical</a>
     <a href="./updateBack.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Update Backgrounds</a>
     <a href="./updateTeam.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Update Team</a>
+    <a href="./blogAdd.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Add Blog</a>
+    <a href="./interAdd.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Add Interview</a>
     <a href="./logout.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Logout</a>
 </div>
 
@@ -170,6 +190,14 @@ function reArrayFiles(&$file_post)
             <br />
             <li>
                 Social: <input type="file" name="social[]" value="" multiple="">
+            </li>
+            <br />
+            <li>
+                Blog: <input type="file" name="blog[]" value="" multiple="">
+            </li>
+            <br />
+            <li>
+                Interview: <input type="file" name="interview[]" value="" multiple="">
             </li>
             <br />
             <input type="submit" name="submit" value="Upload">

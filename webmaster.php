@@ -1,9 +1,9 @@
 <?php
 // Initialize the session
 session_start();
- 
+
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
@@ -38,16 +38,20 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a href="./techAdd.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Add Technical</a>
             <a href="./updateBack.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Update Backgrounds</a>
             <a href="./updateTeam.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Update Team</a>
-            <a href="./logout.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style= "float: right;">Logout</a>
+            <a href="./blogAdd.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Add Blog</a>
+            <a href="./interAdd.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Add Interview</a>
+            <a href="./logout.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small" style="float: right;">Logout</a>
         </div>
     </div>
-
 
     <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
     <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
         <a href="./socAdd.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Add Social</a>
         <a href="./techAdd.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Add Technical</a>
         <a href="./updateBack.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Update Backgrounds</a>
+        <a href="./updateTeam.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Update Team</a>
+        <a href="./blogAdd.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Add Blog</a>
+        <a href="./interAdd.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Add Interview</a>
         <a href="./logout.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Logout</a>
     </div>
 

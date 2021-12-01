@@ -10,6 +10,8 @@ elseif ($type == 'getTechId') techGetId();
 elseif ($type == 'getSocId') socGetId();
 elseif ($type == 'geBackGround') getBackGround();
 elseif ($type == 'getTeam') getTeam();
+elseif ($type == 'getBlogId') blogGetId();
+elseif ($type == 'getInterviewId') interviewGetId();
 
 function techGetId()
 {
@@ -39,6 +41,60 @@ function socGetId()
     $socData = json_encode($socData);
 
     echo '{"socData":' . $socData . '}';
+}
+
+function blogGetId()
+{
+    require 'config.php';
+    $json = json_decode(file_get_contents('php://input'), true);
+    $id = $json['id'];
+
+    $query = "SELECT * FROM blog WHERE id=$id";
+    $result = $db->query($query);
+
+    $blogData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $blogData = json_encode($blogData);
+
+    echo '{"blogData":' . $blogData . '}';
+}
+
+function interviewGetId()
+{
+    require 'config.php';
+    $json = json_decode(file_get_contents('php://input'), true);
+    $id = $json['id'];
+
+    $query = "SELECT * FROM interview WHERE id=$id";
+    $result = $db->query($query);
+
+    $interviewData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $interviewData = json_encode($interviewData);
+
+    echo '{"interviewData":' . $interviewData . '}';
+}
+
+function blog()
+{
+    require 'config.php';
+    $query = "SELECT * FROM blog";
+    $result = $db->query($query);
+
+    $blogData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $blogData = json_encode($blogData);
+
+    echo '{"blogData":' . $blogData . '}';
+}
+
+function interview()
+{
+    require 'config.php';
+    $query = "SELECT * FROM interview";
+    $result = $db->query($query);
+
+    $interviewData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $interviewData = json_encode($interviewData);
+
+    echo '{"interviewData":' . $interviewData . '}';
 }
 
 function activitiesTech()
@@ -113,6 +169,22 @@ function getBackGround()
         echo '{"back":' . $back . '}';
     } elseif ($id == 6) {
         $query = "SELECT social FROM backgroundphotos WHERE id= 1";
+        $result = $db->query($query);
+
+        $back = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $back = json_encode($back);
+
+        echo '{"back":' . $back . '}';
+    } elseif ($id == 7) {
+        $query = "SELECT blog FROM backgroundphotos WHERE id= 1";
+        $result = $db->query($query);
+
+        $back = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $back = json_encode($back);
+
+        echo '{"back":' . $back . '}';
+    } elseif ($id == 8) {
+        $query = "SELECT interview FROM backgroundphotos WHERE id= 1";
         $result = $db->query($query);
 
         $back = mysqli_fetch_all($result, MYSQLI_ASSOC);

@@ -28,7 +28,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <?php
 require './api/config.php';
-$table = 'technical';
+$table = 'blog';
 
 $phpFileUploadErrors = array(
     0 => 'No Error',
@@ -43,32 +43,23 @@ $phpFileUploadErrors = array(
 );
 
 if (isset($_POST['submit'])) {
-    $backP = reArrayFiles($_FILES['backP']);
-    $fP = reArrayFiles($_FILES['fP']);
-    $sP = reArrayFiles($_FILES['sP']);
+    $phot = reArrayFiles($_FILES['phot']);
     $title = $_POST['title'];
-    $branch = $_POST['branch'];
-    $littleSum = $_POST['litSum'];
-    $shortDes = $_POST['smDes'];
-    $longDes = $_POST['lnDes'];
+    $con = $_POST['con'];
+    $des = $_POST['des'];
+    $author = $_POST['author'];
     $dateT = $_POST['date'];
 
     $i = 0;
 
-    $bPD = 'images/tech/backPhotoTech/' . $backP[$i]['name'];
-    $fPD = 'images/tech/firstPhotoTech/' . $fP[$i]['name'];
-    $sPD = 'images/tech/secondPhotoTech/' . $sP[$i]['name'];
+    $bPD = 'images/blog/' . $phot[$i]['name'];
 
-    $bPD2 = 'http://localhost:8000/ieeebackend/images/tech/backPhotoTech/' . $backP[$i]['name'];
-    $fPD2 = 'http://localhost:8000/ieeebackend/images/tech/firstPhotoTech/' . $fP[$i]['name'];
-    $sPD2 = 'http://localhost:8000/ieeebackend/images/tech/secondPhotoTech/' . $sP[$i]['name'];
+    $bPD2 = 'http://localhost:8000/ieeebackend/images/blog/' . $phot[$i]['name'];
 
-    move_uploaded_file($backP[$i]['tmp_name'], $bPD);
-    move_uploaded_file($fP[$i]['tmp_name'], $fPD);
-    move_uploaded_file($sP[$i]['tmp_name'], $sPD);
+    move_uploaded_file($phot[$i]['tmp_name'], $bPD);
 
-    $sql = "INSERT IGNORE INTO $table (title, branch, backGroundPhoto, littleSummary, smallDescription, longDescription, firstPhoto, secondPhoto, dateT) 
-    VALUES('$title', '$branch', '$bPD2', '$littleSum', '$shortDes', '$longDes', '$fPD2', '$sPD2', '$dateT')";
+    $sql = "INSERT IGNORE INTO $table (title, photo, description, content, author, date) 
+    VALUES('$title', '$bPD2', '$des', '$con', '$author', '$dateT')";
     $mysqli->query($sql) or die($mysqli->error);
 ?>
 <?php
@@ -117,11 +108,11 @@ function reArrayFiles(&$file_post)
     <a href="./logout.php" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Logout</a>
 </div>
 <head>
-    <title>Add Technical Activity</title>
+    <title>Add Blog</title>
 </head>
 
 <body style="background-color:black;font-family: cursive;">
-    <header style="background-color: #16161d;color: white;margin-top: 1%; font-weight: bolder; font-size: 50px; text-align: center;">Technical Activity Add</header>
+    <header style="background-color: #16161d;color: white;margin-top: 1%; font-weight: bolder; font-size: 50px; text-align: center;">Blog Add</header>
     <form style="color: white;background-color:#3a46b78f; border-radius: 15px; font-weight: bold; text-align: center; margin: 0px 20%; border: 2px solid black; padding: 2%" action="" method="POST" enctype="multipart/form-data">
         <table>
             <li>
@@ -129,34 +120,21 @@ function reArrayFiles(&$file_post)
             </li>
             <br />
             <li>
-                Branch: <input type="text" name="branch"></input>
+                Photo: <input type="file" name="phot[]" value="" multiple="">
             </li>
             <br />
             <li>
-                BackGroundPhoto: <input type="file" name="backP[]" value="" multiple="">
+                Description:
+                <br /><textarea name="des" rows="5" cols="80"></textarea>
             </li>
             <br />
             <li>
-                Little Summary:
-                <br /> <textarea name="litSum" rows="5" cols="80"></textarea>
+                Content:
+                <br /><textarea name="con" rows="9" cols="80"></textarea>
             </li>
             <br />
             <li>
-                Small Description:
-                <br /><textarea name="smDes" rows="5" cols="80"></textarea>
-            </li>
-            <br />
-            <li>
-                Long Description:
-                <br /><textarea name="lnDes" rows="9" cols="80"></textarea>
-            </li>
-            <br />
-            <li>
-                First Photo: <input type="file" name="fP[]" value="" multiple="">
-            </li>
-            <br />
-            <li>
-                Second Photo: <input type="file" name="sP[]" value="" multiple="">
+                Author: <input type="text" name="author"></input>
             </li>
             <br />
             <li>
